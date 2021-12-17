@@ -3,8 +3,13 @@
 This is a code for the mine sweeper game. 
 
 ## How To Use
+Method 1:
 1. Set the parameters you want in the file custom.py
 2. Run main.py file
+
+Method 2:
+Run advanced.py file
+This is an extra file we wrote that includes a start screen to let the user key in the total number of mines they want in the minefield.
 
 ## How to play
 ### Know your symbols
