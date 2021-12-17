@@ -8,6 +8,7 @@ Method 1:
 2. Run main.py file
 
 Method 2:
+
 Run advanced.py file
 This is an extra file we wrote that includes a start screen to let the user key in the total number of mines they want in the minefield.
 
