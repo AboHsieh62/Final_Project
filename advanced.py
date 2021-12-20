@@ -418,7 +418,7 @@ def game_event():
         pygame.display.update()
 
 
-        def main():
+def main():
     '''
     This function draws the start screen. 
     '''
