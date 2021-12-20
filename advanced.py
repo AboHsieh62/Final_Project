@@ -293,66 +293,6 @@ class MineBlock:
         return True
 
 
-def main():
-    '''
-    This function draws the start screen. 
-    '''
-    screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
-    startText = font3.render(
-        "Welcome! Enter the total number of mines you want:", True, slategrey)
-    editors_name = font2.render("Editors: Po-I & Vina", 1, black)
-    hopkins_logo = pygame.image.load("hopkins.png")
-    hopkins_logo = pygame.transform.scale(hopkins_logo, (100, 100))
-    input_box = pygame.Rect(WIN_WIDTH/2 - 65, WIN_HEIGHT/2 - 16-60, 130, 32)
-    color_inactive = pygame.Color('lightskyblue3')
-    color_active = pygame.Color('dodgerblue2')
-    color = color_inactive
-    active = False
-    text = ''
-    done = False
-
-    while not done:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                done = True
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                # If the user clicked on the input_box rect.
-                if input_box.collidepoint(event.pos):
-                    # Toggle the active variable.
-                    active = not active
-                else:
-                    active = False
-                # Change the current color of the input box.
-                color = color_active if active else color_inactive
-            if event.type == pygame.KEYDOWN:
-                if active:
-                    # When the user presses the ENTER key
-                    if event.key == pygame.K_RETURN:
-                        global num
-                        num = text
-                        text = ''
-                        game_event()
-                    # When the user presses the BACKSPACE key
-                    elif event.key == pygame.K_BACKSPACE:
-                        text = text[:-1]
-                    # Shows text on input box
-                    else:
-                        text += event.unicode
-
-        screen.fill((255, 255, 255))
-        # Render the current text.
-        txt_surface = font3.render(text, True, color)
-        # Blit the text and images.
-        screen.blit(hopkins_logo, (WIN_WIDTH - 100, WIN_HEIGHT - 100))
-        screen.blit(startText, ((WIN_WIDTH - startText.get_width()) / 2, 70))
-        screen.blit(editors_name, (10, WIN_HEIGHT - editors_name.get_height()))
-        screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
-        # Blit the input_box rect.
-        pygame.draw.rect(screen, color, input_box, 2)
-
-        pygame.display.flip()
-
-
 def draw_window():
     '''
     Function that place images and text in window.
@@ -478,5 +418,65 @@ def game_event():
         pygame.display.update()
 
 
+        def main():
+    '''
+    This function draws the start screen. 
+    '''
+    screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
+    startText = font3.render(
+        "Welcome! Enter the total number of mines you want:", True, slategrey)
+    editors_name = font2.render("Editors: Po-I & Vina", 1, black)
+    hopkins_logo = pygame.image.load("hopkins.png")
+    hopkins_logo = pygame.transform.scale(hopkins_logo, (100, 100))
+    input_box = pygame.Rect(WIN_WIDTH/2 - 65, WIN_HEIGHT/2 - 16-60, 130, 32)
+    color_inactive = pygame.Color('lightskyblue3')
+    color_active = pygame.Color('dodgerblue2')
+    color = color_inactive
+    active = False
+    text = ''
+    done = False
+
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # If the user clicked on the input_box rect.
+                if input_box.collidepoint(event.pos):
+                    # Toggle the active variable.
+                    active = not active
+                else:
+                    active = False
+                # Change the current color of the input box.
+                color = color_active if active else color_inactive
+            if event.type == pygame.KEYDOWN:
+                if active:
+                    # When the user presses the ENTER key
+                    if event.key == pygame.K_RETURN:
+                        global num
+                        num = text
+                        text = ''
+                        game_event()
+                    # When the user presses the BACKSPACE key
+                    elif event.key == pygame.K_BACKSPACE:
+                        text = text[:-1]
+                    # Shows text on input box
+                    else:
+                        text += event.unicode
+
+        screen.fill((255, 255, 255))
+        # Render the current text.
+        txt_surface = font3.render(text, True, color)
+        # Blit the text and images.
+        screen.blit(hopkins_logo, (WIN_WIDTH - 100, WIN_HEIGHT - 100))
+        screen.blit(startText, ((WIN_WIDTH - startText.get_width()) / 2, 70))
+        screen.blit(editors_name, (10, WIN_HEIGHT - editors_name.get_height()))
+        screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
+        # Blit the input_box rect.
+        pygame.draw.rect(screen, color, input_box, 2)
+
+        pygame.display.flip()
+        
+        
 if __name__ == '__main__':
     main()
