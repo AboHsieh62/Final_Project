@@ -106,6 +106,7 @@ fwidth, fheight = font1.size('999')
 font2 = pygame.font.SysFont('comicsans', 12)
 font3 = pygame.font.Font(None, 32)
 
+
 class BlockStatus(Enum):
     '''
     This enumeration is a set of symbolic names bound to unique, 
@@ -291,14 +292,18 @@ class MineBlock:
 
         return True
 
-def start_screen():
+
+def main():
     '''
     This function draws the start screen. 
     '''
     screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
-    startText = font3.render("Welcome! Enter the total number of mines you want:", True, slategrey)
+    startText = font3.render(
+        "Welcome! Enter the total number of mines you want:", True, slategrey)
+    editors_name = font2.render("Editors: Po-I & Vina", 1, black)
     hopkins_logo = pygame.image.load("hopkins.png")
-    input_box = pygame.Rect(100, 100, 30, 32)
+    hopkins_logo = pygame.transform.scale(hopkins_logo, (100, 100))
+    input_box = pygame.Rect(WIN_WIDTH/2 - 65, WIN_HEIGHT/2 - 16-60, 130, 32)
     color_inactive = pygame.Color('lightskyblue3')
     color_active = pygame.Color('dodgerblue2')
     color = color_inactive
@@ -321,28 +326,32 @@ def start_screen():
                 color = color_active if active else color_inactive
             if event.type == pygame.KEYDOWN:
                 if active:
+                    # When the user presses the ENTER key
                     if event.key == pygame.K_RETURN:
                         global num
                         num = text
                         text = ''
-                        main()
+                        game_event()
+                    # When the user presses the BACKSPACE key
                     elif event.key == pygame.K_BACKSPACE:
                         text = text[:-1]
+                    # Shows text on input box
                     else:
                         text += event.unicode
 
-        screen.fill((255,255,255))
+        screen.fill((255, 255, 255))
         # Render the current text.
         txt_surface = font3.render(text, True, color)
         # Blit the text and images.
-        screen.blit(hopkins_logo, (WIN_WIDTH * .075, WIN_HEIGHT * .45))
+        screen.blit(hopkins_logo, (WIN_WIDTH - 100, WIN_HEIGHT - 100))
         screen.blit(startText, ((WIN_WIDTH - startText.get_width()) / 2, 70))
+        screen.blit(editors_name, (10, WIN_HEIGHT - editors_name.get_height()))
         screen.blit(txt_surface, (input_box.x+5, input_box.y+5))
         # Blit the input_box rect.
         pygame.draw.rect(screen, color, input_box, 2)
 
         pygame.display.flip()
-        
+
 
 def draw_window():
     '''
@@ -363,7 +372,7 @@ def show_text(WIN, font, x, y, text, fcolor):
     WIN.blit(imgText, (x, y))
 
 
-def main():
+def game_event():
     '''
     Function that runs our game.
     '''
@@ -397,7 +406,7 @@ def main():
                 # When the yellow face is pressed, restart game
                 if (mouse_x in range(face_pos_x, face_pos_x + face_size) and
                         mouse_y in range(face_pos_y, face_pos_y + face_size)):
-                    main()
+                    game_event()
 
                 # Start game and start the stopwatch
                 elif Status == GameStatus.readied:
@@ -470,7 +479,4 @@ def main():
 
 
 if __name__ == '__main__':
-    pygame.init()
-    start_screen()
-    pygame.quit()
-
+    main()
